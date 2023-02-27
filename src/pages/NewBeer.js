@@ -1,9 +1,12 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 
 const NewBeer = () => {
+
 
     const [ name, setName ] = useState('')
     const [ tagline, setTagline ] = useState('')
@@ -13,37 +16,53 @@ const NewBeer = () => {
     const [ attenuation_level, setAttenuation ] = useState(null)
     const [ contributed_by, setContributed ] = useState('')
 
+    const body = { name, tagline, description, first_brewed, brewers_tips, attenuation_level, contributed_by }
+        
+    const navigate = useNavigate()
 
-    const handleSubmit = () => {
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault()
+
+        axios.post('https://ih-beers-api2.herokuapp.com/beers/new', body)
+            .then((result) => {
+                console.log(result)
+                navigate('/beers')
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
 
     }
 
     return (
-        <div>
+        <div id="add">
             <h1>New</h1>
             
             <form onSubmit={handleSubmit}>
 
-            <label>name</label>
+            <label>Name</label>
             <input type='text' name="name" value={name} onChange={(e) => setName(e.target.value)} />
 
-            <label>tagline</label>
-            <input type='tagline' name="tagline"/>
+            <label>Tagline</label>
+            <input type='tagline' name="tagline" value={tagline} onChange={(e) => setTagline(e.target.value)}  />
 
-            <label>description</label>
-            <input type='description' name="description"/>
+            <label>Description</label>
+            <input type='description' name="description" value={description} onChange={(e) => setDescription(e.target.value)} />
 
-            <label></label>
-            <input type='text'/>
+            <label>First Brewed</label>
+            <input type='text' name="first_brewed" value={first_brewed} onChange={(e) => setFirst(e.target.value)} />
 
-            <label></label>
-            <input type='text'/>
+            <label>Brewers Tips</label>
+            <input type='text' name="brewers_tips" value={brewers_tips} onChange={(e) => setTips(e.target.value)} />
 
-            <label></label>
-            <input type='number'/>
+            <label>Attenuation Level</label>
+            <input type='number' name="attenuation_level" value={attenuation_level} onChange={(e) => setAttenuation(e.target.value)} />
 
-            <label></label>
-            <input type='text'/>
+            <label>Contributed By</label>
+            <input type='text' name="contributed_by" value={contributed_by} onChange={(e) => setContributed(e.target.value)} />
 
             <button type="submit">Add Beer</button>
 
