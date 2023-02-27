@@ -36,7 +36,7 @@ const ListBeers = () => {
                         beers.map((beer) => {
                             return (
                                 <div key={beer._id}>
-                                <Link to={`/beers/${beer.id}`}>
+                                <Link to={`/beers/${beer._id}`}>
 
                                       <img src={beer.image_url} alt="beer"/>                              
                                       <h3>{beer.name}</h3> 

@@ -25,7 +25,7 @@ const NewBeer = () => {
             <form onSubmit={handleSubmit}>
 
             <label>name</label>
-            <input type='name' name="name"/>
+            <input type='text' name="name" value={name} onChange={(e) => setName(e.target.value)} />
 
             <label>tagline</label>
             <input type='tagline' name="tagline"/>
